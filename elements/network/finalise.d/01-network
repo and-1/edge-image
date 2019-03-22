@@ -1,0 +1,33 @@
+#!/bin/bash
+cat<<EOF>/tmp/patch
+--- __init__.py.old     2019-03-20 15:39:21.214116129 +0000
++++ __init__.py 2019-03-20 15:39:00.462112430 +0000
+@@ -591,18 +591,20 @@
+     ret = {}
+     for name, mac, _driver, _devid in get_interfaces():
+         if mac in ret:
+-            raise RuntimeError(
+-                "duplicate mac found! both '%s' and '%s' have mac '%s'" %
+-                (name, ret[mac], mac))
++            continue
++            #raise RuntimeError(
++            #    "duplicate mac found! both '%s' and '%s' have mac '%s'" %
++            #    (name, ret[mac], mac))
+         ret[mac] = name
+         # Try to get an Infiniband hardware address (in 6 byte Ethernet format)
+         # for the interface.
+         ib_mac = get_ib_interface_hwaddr(name, True)
+         if ib_mac:
+             if ib_mac in ret:
+-                raise RuntimeError(
+-                    "duplicate mac found! both '%s' and '%s' have mac '%s'" %
+-                    (name, ret[ib_mac], ib_mac))
++                continue
++                #raise RuntimeError(
++                #    "duplicate mac found! both '%s' and '%s' have mac '%s'" %
++                #    (name, ret[ib_mac], ib_mac))
+             ret[ib_mac] = name
+     return ret
+EOF
+patch /usr/lib/python3/dist-packages/cloudinit/net/__init__.py < /tmp/patch
+echo 'network: {config: disabled}' > /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg

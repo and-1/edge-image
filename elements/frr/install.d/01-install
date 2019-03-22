@@ -1,0 +1,7 @@
+#!/bin/bash
+ifup_ver=ifupdown2_1.2.5-1_all
+# update and install FRR
+sudo apt update && sudo apt install -y frr frr-pythontools python-argcomplete python-ipaddr
+# install ifupdown
+wget http://ftp.us.debian.org/debian/pool/main/i/ifupdown2/${ifup_ver}.deb -O /tmp/ifupdown2.deb
+dpkg -i /tmp/ifupdown2.deb

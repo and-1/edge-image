@@ -1,0 +1,11 @@
+#!/bin/bash
+base_url='https://kernel.ubuntu.com/~kernel-ppa/mainline/v4.18.20/'
+packages='linux-headers-4.18.20-041820_4.18.20-041820.201812030624_all.deb 
+  linux-headers-4.18.20-041820-lowlatency_4.18.20-041820.201812030624_amd64.deb 
+  linux-image-unsigned-4.18.20-041820-lowlatency_4.18.20-041820.201812030624_amd64.deb 
+  linux-modules-4.18.20-041820-lowlatency_4.18.20-041820.201812030624_amd64.deb'
+
+for package in $packages;do
+  wget $base_url$package -O /tmp/$package
+  dpkg -i /tmp/$package
+done

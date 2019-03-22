@@ -1,0 +1,41 @@
+#!/bin/bash
+# Enables IPv4/IPv6 Routing
+sysctl-set-value net.ipv4.ip_forward 1
+
+# Routing
+sysctl-set-value net.ipv4.conf.all.ignore_routes_with_linkdown 1
+
+# Best Settings for Peering w/ BGP Unnumbered
+#    and OSPF Neighbors
+sysctl-set-value net.ipv4.conf.all.rp_filter 0
+sysctl-set-value net.ipv4.conf.default.rp_filter 0
+sysctl-set-value net.ipv4.conf.lo.rp_filter 0
+sysctl-set-value net.ipv4.conf.all.forwarding 1
+sysctl-set-value net.ipv4.conf.default.forwarding 1
+sysctl-set-value net.ipv4.conf.default.arp_announce 2
+sysctl-set-value net.ipv4.conf.default.arp_notify 1
+sysctl-set-value net.ipv4.conf.default.arp_ignore 1
+sysctl-set-value net.ipv4.conf.all.arp_announce 2
+sysctl-set-value net.ipv4.conf.all.arp_notify 1
+sysctl-set-value net.ipv4.conf.all.arp_ignore 1
+sysctl-set-value net.ipv4.icmp_errors_use_inbound_ifaddr 1
+
+# Miscellaneous Settings
+
+# igmp
+sysctl-set-value net.ipv4.igmp_max_memberships 1000
+sysctl-set-value net.ipv4.neigh.default.mcast_solicit 10
+
+# Garbage Collection Settings for ARP and Neighbors
+sysctl-set-value net.ipv4.neigh.default.gc_thresh2 7168
+sysctl-set-value net.ipv4.neigh.default.gc_thresh3 8192
+sysctl-set-value net.ipv4.neigh.default.base_reachable_time_ms 14400000
+
+# Use neigh information on selection of nexthop for multipath hops
+sysctl-set-value net.ipv4.fib_multipath_use_neigh 1
+
+# Allows Apps to Work with VRF
+sysctl-set-value net.ipv4.tcp_l3mdev_accept 1
+
+sed -i /^bgpd=/s/no/yes/ /etc/frr/daemons
+sed -i /^bfdd=/s/no/yes/ /etc/frr/daemons

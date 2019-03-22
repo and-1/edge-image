@@ -1,0 +1,6 @@
+diskimage-builder
+python-openstackclient
+##apt packages
+#kpartx
+#qemu-utils
+#debootstrap

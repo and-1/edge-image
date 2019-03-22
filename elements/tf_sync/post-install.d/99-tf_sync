@@ -1,0 +1,4 @@
+#!/bin/bash
+git clone https://github.com/and-1/tf_sync.git /opt/tf_sync
+tar -xvf /opt/tf_sync/contrail-api-cli-*.tar -C /
+pip install -r /opt/tf_sync/requirements.txt
