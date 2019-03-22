@@ -2,7 +2,7 @@
 git clone https://git.openstack.org/openstack/tripleo-image-elements.git
 git clone https://git.openstack.org/openstack/heat-agents.git
 # Export some vars
-export BASE_ELEMENTS="ubuntu"
+export BASE_ELEMENTS="ubuntu install-static"
 export DIB_RELEASE='bionic'
 export DIB_CLOUD_INIT_DATASOURCES='ConfigDrive, OpenStack'
 export ELEMENTS_PATH="tripleo-image-elements/elements:heat-agents/:elements"
