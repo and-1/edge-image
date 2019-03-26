@@ -31,3 +31,14 @@ cat<<EOF>/tmp/patch
 EOF
 patch /usr/lib/python3/dist-packages/cloudinit/net/__init__.py < /tmp/patch
 echo 'network: {config: disabled}' > /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+
+rm -f /etc/iptables/*
+cat<<EOF>/etc/iptables/rules.v4
+*nat
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+:DOCKER - [0:0]
+COMMIT
+EOF
