@@ -2,3 +2,5 @@ heat-agents/
 tripleo-image-elements/
 edge-router.d/
 edge-router.raw
+*.swp
+*/**/*.swp
